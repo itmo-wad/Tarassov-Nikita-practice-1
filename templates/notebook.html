@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<!--ctrl+shift+v to render preview-->
+
+<body>
+    <h1>Notebook</h1>
+    <br><br>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block body %}{% endblock %}
+    <br><br>
+
+    <form action="/notebook" method="POST">
+        Note title:<br>
+        <input type="text" name="note_title" value=""><br>
+        Note content:<br>
+        <input type="text" name="note_content" value=""><br>
+        <input type="submit" value="Post">
+
+    </form>
+    <form action="/notebook/delete" method="POST">
+        <input type="submit" value="Delete notes">
+    </form>
+    <form action="/notebook" method="GET">
+        <input type="number" name="number_of_notes" value="{{number}}" min="1">
+        <input type="submit" value="Show">
+    </form> <br><br><br>
+    Actual notes:
+    <br><br>
+
+    {% for notes in notes %}
+    <li>{{ notes.note_title }}</li>
+    <li>{{ notes.note_content }}</li>
+    {% endfor %}
+
+    <br><br><br>
+    <div class="container">
+        <br><a href="/">Main page</a>
+    </div>
+
+</body>
+
+</html>
